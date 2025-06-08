@@ -66,9 +66,11 @@ confidence_set <- CS.argmin(data, method = "SML")
 print(confidence_set)
 ```
 
+The algorithm think agent 1-9 are all potential best performers given the current data. We made some type-II errors since it includes suboptimal ones.
+
 We now repeat the procedure 100 times to estimate how often each agent is included in the confidence set:
 
-```{r}
+```{r, eval = F}
 set.seed(123)
 repeat_N <- 100
 results <- matrix(0, nrow = repeat_N, ncol = agent_num)
@@ -83,6 +85,19 @@ for (i in 1:repeat_N) {
     results[i, as.numeric(cs_i)] <- 1
 }
 inclusion_prop <- colSums(results) / repeat_N
+```
+
+```{r, eval = T, echo = F}
+output_dir <- file.path("~", "Documents", "argminCS", "docs", "data")
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
+```
+
+```{r, eval = F, echo = F}
+saveRDS(inclusion_prop, file = file.path(output_dir, "inclusion.rds"))
+```
+
+```{r, eval = T, echo = F}
+inclusion_prop <- readRDS(file.path(output_dir, "inclusion.rds"))
 ```
 
 ```{r}
@@ -127,10 +142,6 @@ inclusion_prop_large <- colSums(results) / repeat_N
 
 ```
 
-```{r, eval = T, echo = F}
-output_dir <- file.path("~", "Documents", "argminCS", "docs", "data")
-if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
-```
 
 ```{r, eval = F, echo = F}
 
@@ -142,7 +153,7 @@ saveRDS(inclusion_prop_large, file = file.path(output_dir, "inclusion_large.rds"
 inclusion_prop_large <- readRDS(file.path(output_dir, "inclusion_large.rds"))
 ```
 
-With a larger sample size, suboptimal agents are included less frequently in the confidence set. In fact, in our paper, we theoretically showed that each of the optimal agents is included with probability exceeding 0.95.
+With a larger sample size, suboptimal agents are included less frequently in the confidence set. In fact, in our paper, we theoretically showed that each of the optimal agents is included with probability exceeding 0.95 while the probability of including any suboptimal agent converges to zero.
 
 ```{r}
 df_inclusion <- data.frame(

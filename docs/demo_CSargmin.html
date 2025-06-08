@@ -178,6 +178,7 @@ Obs_5 0.23151296 1.05924724 1.3493602  0.2582443  0.4914450</code></pre>
 <pre><code>[1] 1 2 3 4 5 6 7 8 9</code></pre>
 </div>
 </div>
+<p>The algorithm think agent 1-9 are all potential best performers given the current data. We made some type-II errors since it includes suboptimal ones.</p>
 <p>We now repeat the procedure 100 times to estimate how often each agent is included in the confidence set:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
@@ -213,7 +214,7 @@ Obs_5 0.23151296 1.05924724 1.3493602  0.2582443  0.4914450</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="demo_CSargmin_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="demo_CSargmin_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -238,7 +239,7 @@ Obs_5 0.23151296 1.05924724 1.3493602  0.2582443  0.4914450</code></pre>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>inclusion_prop_large <span class="ot">&lt;-</span> <span class="fu">colSums</span>(results) <span class="sc">/</span> repeat_N</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>With a larger sample size, suboptimal agents are included less frequently in the confidence set. In fact, in our paper, we theoretically showed that each of the optimal agents is included with probability exceeding 0.95.</p>
+<p>With a larger sample size, suboptimal agents are included less frequently in the confidence set. In fact, in our paper, we theoretically showed that each of the optimal agents is included with probability exceeding 0.95 while the probability of including any suboptimal agent converges to zero.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_inclusion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">Agent =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span>agent_num),</span>
@@ -257,7 +258,7 @@ Obs_5 0.23151296 1.05924724 1.3493602  0.2582443  0.4914450</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="demo_CSargmin_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="demo_CSargmin_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
